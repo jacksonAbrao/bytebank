@@ -3,6 +3,9 @@
 import 'package:bytebank/screens/contact_form.dart';
 import 'package:flutter/material.dart';
 
+import '../database/app_database.dart';
+import '../models/contact.dart';
+
 class ContactList extends StatelessWidget {
   const ContactList({Key? key}) : super(key: key);
 
@@ -13,19 +16,18 @@ class ContactList extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         title: Text('Contacts'),
       ),
-      body: ListView(
-        // ignore: prefer_const_literals_to_create_immutables
-        children: [
-          Card(
-            child: ListTile(
-              title: Text(
-                "Jackson",
-                style: TextStyle(fontSize: 24),
-              ),
-              subtitle: Text("300", style: TextStyle(fontSize: 16)),
-            ),
-          )
-        ],
+      body: FutureBuilder(
+        future: findAll(),
+        builder: (context, AsyncSnapshot<dynamic> snapshot) {
+          final List<Contact>? contacts = snapshot.data;
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              final Contact contact = contacts![index];
+              return _ContactItem(contact);
+            },
+            itemCount: contacts!.length,
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -42,6 +44,28 @@ class ContactList extends StatelessWidget {
           child: Icon(
             Icons.add,
           )),
+    );
+  }
+}
+
+class _ContactItem extends StatelessWidget {
+  final Contact contact;
+
+  _ContactItem(this.contact);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        title: Text(
+          contact.name,
+          style: TextStyle(fontSize: 24),
+        ),
+        subtitle: Text(
+          contact.accountNumber.toString(),
+          style: TextStyle(fontSize: 16),
+        ),
+      ),
     );
   }
 }
