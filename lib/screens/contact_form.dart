@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_const_constructors, deprecated_member_use
-
 import 'package:bytebank/models/contact.dart';
 import 'package:flutter/material.dart';
 
-import '../database/app_database.dart';
+import '../dao/contact_dao.dart';
 
 class ContactForm extends StatefulWidget {
   const ContactForm({Key? key}) : super(key: key);
@@ -14,15 +12,16 @@ class ContactForm extends StatefulWidget {
 
 class _ContactFormState extends State<ContactForm> {
   final TextEditingController _nameController = TextEditingController();
-
   final TextEditingController _accontNumberController = TextEditingController();
+
+  final ContactDao _dao = ContactDao();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        title: Text('New Contact'),
+        title: const Text('New Contact'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -31,20 +30,20 @@ class _ContactFormState extends State<ContactForm> {
           children: [
             TextField(
               controller: _nameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Full name',
               ),
-              style: TextStyle(fontSize: 24),
+              style: const TextStyle(fontSize: 24),
               keyboardType: TextInputType.name,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: TextField(
                 controller: _accontNumberController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Account number',
                 ),
-                style: TextStyle(fontSize: 24),
+                style: const TextStyle(fontSize: 24),
                 keyboardType: TextInputType.number,
               ),
             ),
@@ -52,29 +51,15 @@ class _ContactFormState extends State<ContactForm> {
               padding: const EdgeInsets.only(top: 16.0),
               child: SizedBox(
                 width: double.maxFinite,
-                child: RaisedButton(
-                  // onPressed: () {
-                  //   final String name = _nameController.text;
-                  //   final int? accountNumber =
-                  //       int.tryParse(.text);
-                  //   final Contact newContact = Contact(0, name, accountNumber!);
-                  //   save(newContact).then((id) {
-                  //     // Navigator.of(context).push(
-                  //     //   MaterialPageRoute(
-                  //     //     builder: (context) => ContactList(),
-                  //     //   ),
-                  //     // );
-                  //     Navigator.pop(context);
-                  //   });
-                  // },
+                child: ElevatedButton(
                   onPressed: () {
                     final String name = _nameController.text;
                     final int? accountNumber =
                         int.tryParse(_accontNumberController.text);
                     final Contact newContact = Contact(0, name, accountNumber!);
-                    save(newContact).then((id) => Navigator.pop(context));
+                    _dao.save(newContact).then((id) => Navigator.pop(context));
                   },
-                  child: Text('Create'),
+                  child: const Text('Create'),
                 ),
               ),
             )
