@@ -1,5 +1,3 @@
-// ignore_for_file: unused_local_variable, prefer_collection_literals, deprecated_member_use
-
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
@@ -20,7 +18,7 @@ Future<Database> createDatabase() {
 
 Future<int> save(Contact contact) {
   return createDatabase().then((db) {
-    final Map<String, dynamic> contactMap = Map();
+    final Map<String, dynamic> contactMap = {};
     contactMap['name'] = contact.name;
     contactMap['account_number'] = contact.accountNumber;
     return db.insert('contacts', contactMap);

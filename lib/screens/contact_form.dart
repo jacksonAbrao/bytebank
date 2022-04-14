@@ -1,7 +1,9 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, deprecated_member_use
 
 import 'package:bytebank/models/contact.dart';
 import 'package:flutter/material.dart';
+
+import '../database/app_database.dart';
 
 class ContactForm extends StatefulWidget {
   const ContactForm({Key? key}) : super(key: key);
@@ -51,13 +53,26 @@ class _ContactFormState extends State<ContactForm> {
               child: SizedBox(
                 width: double.maxFinite,
                 child: RaisedButton(
+                  // onPressed: () {
+                  //   final String name = _nameController.text;
+                  //   final int? accountNumber =
+                  //       int.tryParse(.text);
+                  //   final Contact newContact = Contact(0, name, accountNumber!);
+                  //   save(newContact).then((id) {
+                  //     // Navigator.of(context).push(
+                  //     //   MaterialPageRoute(
+                  //     //     builder: (context) => ContactList(),
+                  //     //   ),
+                  //     // );
+                  //     Navigator.pop(context);
+                  //   });
+                  // },
                   onPressed: () {
                     final String name = _nameController.text;
                     final int? accountNumber =
                         int.tryParse(_accontNumberController.text);
-
                     final Contact newContact = Contact(0, name, accountNumber!);
-                    Navigator.pop(context, newContact);
+                    save(newContact).then((id) => Navigator.pop(context));
                   },
                   child: Text('Create'),
                 ),
