@@ -1,11 +1,13 @@
-import 'package:bytebank/http/webclient.dart';
+import 'package:bytebank/http/webclients/transaction_webclient.dart';
 import 'package:bytebank/screens/centered_message.dart';
 import 'package:flutter/material.dart';
 import '../components/progress.dart';
 import '../models/transactions.dart';
 
 class TransactionsList extends StatelessWidget {
-  const TransactionsList({Key? key}) : super(key: key);
+  final TransactionWebClient _webClient = TransactionWebClient();
+
+  TransactionsList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class TransactionsList extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: FutureBuilder<List<Transaction>>(
-        future: findAll(),
+        future: _webClient.findAll(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -54,12 +56,12 @@ class TransactionsList extends StatelessWidget {
                   );
                 }
               }
-              return CenteredMessage(
+              return const CenteredMessage(
                 'No Transactions found',
                 icon: Icons.warning,
               );
           }
-          return CenteredMessage("Unknow error");
+          return const CenteredMessage("Unknow error");
         },
       ),
     );
