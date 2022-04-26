@@ -54,7 +54,7 @@ class _ContactFormState extends State<ContactForm> {
                 child: ElevatedButton(
                   onPressed: () {
                     final String name = _nameController.text;
-                    final int? accountNumber =
+                    final accountNumber =
                         int.tryParse(_accontNumberController.text);
                     final Contact newContact = Contact(0, name, accountNumber!);
                     _dao.save(newContact).then((id) => Navigator.pop(context));

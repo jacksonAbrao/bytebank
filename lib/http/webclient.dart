@@ -62,7 +62,7 @@ Future<Transaction> save(Transaction transaction) async {
     'value': transaction.value,
     'contact': {
       'name': transaction.contact.name,
-      'acconuntNumber': transaction.contact.accountNumber
+      'accountNumber': transaction.contact.accountNumber
     }
   };
 
