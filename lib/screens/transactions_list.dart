@@ -1,5 +1,5 @@
 import 'package:bytebank/http/webclients/transaction_webclient.dart';
-import 'package:bytebank/screens/centered_message.dart';
+import 'package:bytebank/components/centered_message.dart';
 import 'package:flutter/material.dart';
 import '../components/progress.dart';
 import '../models/transactions.dart';
