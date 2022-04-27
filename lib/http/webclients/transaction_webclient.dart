@@ -1,9 +1,6 @@
 import 'dart:convert';
-
 import 'package:bytebank/http/webclient.dart';
 import 'package:http/http.dart';
-
-import '../../models/contact.dart';
 import '../../models/transactions.dart';
 
 class TransactionWebClient {
@@ -13,48 +10,20 @@ class TransactionWebClient {
     final List<dynamic> decodedJson = jsonDecode(response.body);
     final List<Transaction> transactions = [];
     for (Map<String, dynamic> transactionJson in decodedJson) {
-      final Map<String, dynamic> contactJson = transactionJson['contact'];
-      final Transaction transaction = Transaction(
-        transactionJson['value'],
-        Contact(
-          0,
-          contactJson['name'],
-          contactJson['accountNumber'],
-        ),
-      );
-      transactions.add(transaction);
+      transactions.add(Transaction.fromJson(transactionJson));
     }
     return transactions;
   }
 
   Future<Transaction> save(Transaction transaction) async {
-    final Map<String, dynamic> transactionMap = {
-      'value': transaction.value,
-      'contact': {
-        'name': transaction.contact.name,
-        'accountNumber': transaction.contact.accountNumber
-      }
-    };
-
-    final String transactionJson = jsonEncode(transactionMap);
-
+    final String transactionJson = jsonEncode(transaction.toJson());
     final Response response = await client.post(baseUrl,
         headers: {
           'Content-type': 'application/json',
           'password': '1000',
         },
         body: transactionJson);
-
     Map<String, dynamic> json = jsonDecode(response.body);
-    final Map<String, dynamic> contactJson = json['contact'];
-    // ignore: dead_code
-    return Transaction(
-      json['value'],
-      Contact(
-        0,
-        contactJson['name'],
-        contactJson['accountNumber'],
-      ),
-    );
+    return Transaction.fromJson(json);
   }
 }

@@ -13,6 +13,11 @@ class Transaction {
       : value = json['value'],
         contact = Contact.fromJson(json['contact']);
 
+  Map<String, dynamic> toJson() => {
+        'value': value,
+        'contact': contact.toJson(),
+      };
+
   @override
   String toString() {
     return 'Transaction{value: $value, contact: $contact}';
