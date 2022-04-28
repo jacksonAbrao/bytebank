@@ -23,6 +23,14 @@ class TransactionWebClient {
           'password': password,
         },
         body: transactionJson);
+
+    if (response.statusCode == 400) {
+      throw Exception('there was an error submitting transaction');
+    }
+    if (response.statusCode == 401) {
+      throw Exception('authentication failed');
+    }
+
     Map<String, dynamic> json = jsonDecode(response.body);
     return Transaction.fromJson(json);
   }
