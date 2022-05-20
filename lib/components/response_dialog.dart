@@ -92,7 +92,7 @@ class FailureDialog extends StatelessWidget {
   final String message;
   final IconData icon;
 
-  FailureDialog(
+  const FailureDialog(
     this.message, {
     this.title = 'Failure',
     this.icon = Icons.warning,

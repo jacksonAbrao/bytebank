@@ -4,6 +4,7 @@ import 'package:http_interceptor/http/intercepted_client.dart';
 
 final Client client = InterceptedClient.build(
   interceptors: [LoggingInterceptor()],
+  requestTimeout: const Duration(seconds: 5),
 );
 
 Uri baseUrl = Uri.parse(("http://10.1.1.102:8080/transactions"));
