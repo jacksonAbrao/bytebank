@@ -16,7 +16,7 @@ class Progress extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8.0),
             child: Text(
               message,
-              style: TextStyle(fontSize: 16.0),
+              style: const TextStyle(fontSize: 16.0),
             ),
           ),
         ],

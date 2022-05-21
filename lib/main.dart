@@ -1,10 +1,8 @@
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 void main() {
   runApp(const BytebankApp());
-  print(Uuid().v4());
 }
 
 class BytebankApp extends StatelessWidget {

@@ -30,7 +30,6 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    print('transaction form id: $transactionId');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
